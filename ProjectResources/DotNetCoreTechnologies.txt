@@ -1,0 +1,29 @@
+https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/
+
+https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=visual-studio
+
+
+https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet
+
+
+dotnet aspnet-codegenerator controller -name JudgesController -m aicupper.models.judge -dc dbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Create components:
+https://stackoverflow.com/questions/44151427/how-to-create-a-new-component-in-angular-4-using-cli
+
+ng generate component
+--------------------------------------------------------------------------------------------------------------------------------------------------
+How to add a Nuget Package Using dotnet add:
+
+https://ardalis.com/how-to-add-a-nuget-package-using-dotnet-add
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create the database
+https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=netcore-cli
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Creating a Custom Date Pipe
+https://loiane.com/2017/08/angular-tips-formatting-dates-with-a-custom-date-pipe-dd-mm-yyyy/

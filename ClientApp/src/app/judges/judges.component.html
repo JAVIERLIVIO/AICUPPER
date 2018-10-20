@@ -1,0 +1,26 @@
+<p>List of all available judges from the database.</p>
+<p *ngIf="!judges"><em>Loading...</em></p>
+<table class='table' *ngIf="judges">
+  <thead>
+    <tr>
+      <th>iD</th>
+      <th>Name</th>
+      <th>Known As</th>
+      <th>Phone Number</th>
+      <th>Email Address</th>
+      <th>Is Enabled</th>
+      <th>Created On</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let judges of judges">
+      <td>{{ judges.id }}</td>
+      <td>{{ judges.judgeName }}</td>
+      <td>{{ judges.knownAs }}</td>
+      <td>{{ judges.phoneNumber }}</td>
+      <td>{{ judges.emailAddress }}</td>
+      <td>{{ judges.isEnabled }}</td>
+      <td>{{ judges.createdOn.toLocaleString() }}</td>
+    </tr>
+  </tbody>
+</table>
