@@ -24,6 +24,16 @@ https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=netc
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 Creating a Custom Date Pipe
 https://loiane.com/2017/08/angular-tips-formatting-dates-with-a-custom-date-pipe-dd-mm-yyyy/
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+dotnet publish
+https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish?tabs=netcore21
+
+dotnet publish -c Debug -r win81-x64
+dotnet publish -c Release -r win81-x64
+
+https://stackoverflow.com/questions/38624453/asp-net-core-1-0-on-iis-error-502-5
+
+--------------------------------------------------------------------------------------------------------------------------------------------------

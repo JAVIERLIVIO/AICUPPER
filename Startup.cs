@@ -30,7 +30,7 @@ namespace aicupper
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = "server=www.javierlivio.com; User Id=sa; Password=Auburn@2017; Database=aicupper.db";
+            var connection = "server=24.197.33.70; User Id=sa; Password=Auburn@2017; Database=aicupper.db";
 
             services.AddDbContext<aicupper.models.dbContext>
                 (options => options.UseSqlServer(connection));
