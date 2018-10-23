@@ -1,77 +1,44 @@
 using System;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.Identity;
+using System.Text;
 
 namespace aicupper.util
 {
-    /*
-    public class hasher: IPasswordHasher
+    public class hasher
     {
-        private readonly RandomNumberGenerator _rng;
-        private string _salted = "";
+        private string SALTED_STRING = "k6NOjpoaQTRxRnqtx47Uow==";
+        private string hashed = "";
+        public hasher(string salter, string password) {
+            this.SALTED_STRING = salter;
+            this.hash(password);
+        }
         public hasher(string password) {
-
-
+            this.hash(password);
         }
         
-        public string SaltedPassword{
-            get { return _salted;}
+        public string HashedPassword {
+            get { return hashed;}
         }
-            
-        public virtual PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
-        {            
-            // Convert the stored Base64 password to bytes
-            byte[] decodedHashedPassword = Convert.FromBase64String(hashedPassword);
+        private void hash(string password) {
+            // generate a 128-bit salt using a secure PRNG
+            byte[] salt = new byte[128 / 8];
 
-            // The first byte indicates the format of the stored hash
-            switch (decodedHashedPassword[0])
+            // derive a 256-bit subkey (use HMACSHA1 with 10,000 iterations)
+            this.hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: Encoding.ASCII.GetBytes(SALTED_STRING),
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8)); 
+        } 
+        public string GenerateSalterText() {
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
             {
-                case 0x00:
-                    if (VerifyHashedPasswordV2(decodedHashedPassword, providedPassword))
-                    {
-                        // This is an old password hash format - the caller needs to rehash if we're not running in an older compat mode.
-                        return (_compatibilityMode == PasswordHasherCompatibilityMode.IdentityV3)
-                            ? PasswordVerificationResult.SuccessRehashNeeded
-                            : PasswordVerificationResult.Success;
-                    }
-                    else
-                    {
-                        return PasswordVerificationResult.Failed;
-                    }
-
-                case 0x01:
-                    if (VerifyHashedPasswordV3(decodedHashedPassword, providedPassword))
-                    {
-                        return PasswordVerificationResult.Success;
-                    }
-                    else
-                    {
-                        return PasswordVerificationResult.Failed;
-                    }
-
-                default:
-                    return PasswordVerificationResult.Failed; // unknown format marker
-            }
+                rng.GetBytes(salt);
+                return Convert.ToBase64String(salt);
+            } 
         }
-        private static byte[] HashPasswordV2(string password, RandomNumberGenerator rng)
-        {
-            const KeyDerivationPrf Pbkdf2Prf = KeyDerivationPrf.HMACSHA1; // default for Rfc2898DeriveBytes
-            const int Pbkdf2IterCount = 1000; // default for Rfc2898DeriveBytes
-            const int Pbkdf2SubkeyLength = 256 / 8; // 256 bits
-            const int SaltSize = 128 / 8; // 128 bits
-
-            // Produce a version 2 text hash.
-            byte[] salt = new byte[SaltSize];
-            rng.GetBytes(salt);
-            byte[] subkey = KeyDerivation.Pbkdf2(password, salt, Pbkdf2Prf, Pbkdf2IterCount, Pbkdf2SubkeyLength);
-
-            var outputBytes = new byte[1 + SaltSize + Pbkdf2SubkeyLength];
-            outputBytes[0] = 0x00; // format marker
-            Buffer.BlockCopy(salt, 0, outputBytes, 1, SaltSize);
-            Buffer.BlockCopy(subkey, 0, outputBytes, 1 + SaltSize, Pbkdf2SubkeyLength);
-            return outputBytes;
-        }        
-    }  
-     */
+    }
 }
