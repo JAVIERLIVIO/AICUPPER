@@ -1,34 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace aicupper.models
 {
-    public class judge
+    public class judgeEvent
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int JudgeEventID { get; set; }
+        
+        [Required]
         public int JudgeID { get; set; }
 
         [Required]
         public Guid AICupperAccountID { get; set; }
 
         [Required]
-        public string JudgeName { get; set; }
-
-        public string KnownAs { get; set; }
-
-        [DataType(DataType.EmailAddress)]
-        [Required]
-        public string EmailAddress { get; set; }
-
-        public string PhoneNumber { get; set; }
+        public int CuppingEventID { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
         public Boolean IsEnabled { get; set; }
-
-        public List<judgeEvent> CuppingEvents { get; set; }
     }
 }

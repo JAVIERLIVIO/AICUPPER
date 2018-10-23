@@ -6,9 +6,10 @@ namespace aicupper.models
 {
     public class cuppingEvent
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("CuppingEventID")]
-        public int Id { get; set; }
+        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CuppingEventID { get; set; }
 
         public Guid AICupperAccountID { get; set; }
 

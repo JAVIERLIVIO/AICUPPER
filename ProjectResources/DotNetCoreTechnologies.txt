@@ -22,6 +22,9 @@ https://ardalis.com/how-to-add-a-nuget-package-using-dotnet-add
 Create the database
 https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/new-db?tabs=netcore-cli
 
+dotnet ef migrations add [Name]
+dotnet ef database update
+
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 Creating a Custom Date Pipe
