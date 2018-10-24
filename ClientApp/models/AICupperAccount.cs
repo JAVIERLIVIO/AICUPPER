@@ -30,8 +30,8 @@ namespace aicupper.models
 
         public Boolean? IsActive { get; set; }
 
-        public List<judge> Judges { get; set; }
+        public ICollection<judge> Judges { get; set; }
 
-        public List<cuppingEvent> CuppingEvents { get; set; }
+        public ICollection<cuppingEvent> CuppingEvents { get; set; }
     }
 }

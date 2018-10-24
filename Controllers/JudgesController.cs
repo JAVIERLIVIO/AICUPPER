@@ -41,7 +41,7 @@ namespace aicupper.Controllers
             }
 
             var judge = await _context.Judges
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.JudgeID == id);
             if (judge == null)
             {
                 return NotFound();
@@ -50,26 +50,28 @@ namespace aicupper.Controllers
             return View(judge);
         }
 
-        // GET: Judges/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         // POST: Judges/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AICupperAccountID,JudgeName,KnownAs,EmailAddress,PhoneNumber,CreatedOn,IsEnabled")] judge judge)
+         [HttpPost("[action]")]
+        public async Task<ActionResult> Create([FromBody] judge judgeObject)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(judge);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            if( judgeObject.EmailAddress.Length == 0 )
+                return BadRequest(new { Message = "Judge record cannot be created. Email is missing." });
+            else if( judgeObject.JudgeName.Length == 0 )
+                return BadRequest(new { Message = "Judge record cannot be created. Judge Name is missing." });
+            else if( judgeObject.AICupperAccountID == null )
+                return BadRequest(new { Message = "Judge record cannot be created. AICUPPER Account is missing." });
+            else {
+                try {
+                    _context.Add(judgeObject);
+                    await Task.Run(() => _context.SaveChangesAsync());
+                    return Accepted(new { Message = "Judge record successfully created" });
+                } catch (Exception ex) {
+                    return StatusCode(500);
+                }
             }
-            return View(judge);
+            // return NotFound(new { Message = "Judge record cannot be created. Email is missing." });
         }
 
         // GET: Judges/Edit/5
@@ -93,9 +95,9 @@ namespace aicupper.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AICupperAccountID,JudgeName,KnownAs,EmailAddress,PhoneNumber,CreatedOn,IsEnabled")] judge judge)
+        public async Task<IActionResult> Edit(int id, [Bind("JudgeID,AICupperAccountID,JudgeName,KnownAs,EmailAddress,PhoneNumber,CreatedOn,IsEnabled")] judge judge)
         {
-            if (id != judge.Id)
+            if (id != judge.JudgeID)
             {
                 return NotFound();
             }
@@ -109,7 +111,7 @@ namespace aicupper.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!judgeExists(judge.Id))
+                    if (!judgeExists(judge.JudgeID))
                     {
                         return NotFound();
                     }
@@ -132,7 +134,7 @@ namespace aicupper.Controllers
             }
 
             var judge = await _context.Judges
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.JudgeID == id);
             if (judge == null)
             {
                 return NotFound();
@@ -154,7 +156,7 @@ namespace aicupper.Controllers
 
         private bool judgeExists(int id)
         {
-            return _context.Judges.Any(e => e.Id == id);
+            return _context.Judges.Any(e => e.JudgeID == id);
         }
     }
 }

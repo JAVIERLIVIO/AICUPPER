@@ -1,5 +1,5 @@
 <p>List of all available judges from the database.</p>
-<p *ngIf="!judges"><em>Loading...</em></p>
+<p *ngIf="!judges"><em>{{apiOperativeStatus}}</em></p>
 <table class='table' *ngIf="judges">
   <thead>
     <tr>
@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let judges of judges">
-      <td>{{ judges.id }}</td>
+      <td>{{ judges.judgeID }}</td>
       <td>{{ judges.judgeName }}</td>
       <td>{{ judges.knownAs }}</td>
       <td>{{ judges.phoneNumber }}</td>

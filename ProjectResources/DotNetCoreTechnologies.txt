@@ -60,4 +60,7 @@ Installed
 ]
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
+ControllerBase Methods
+
+https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.accepted?view=aspnetcore-2.1
 

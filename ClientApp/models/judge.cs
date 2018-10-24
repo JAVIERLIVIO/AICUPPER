@@ -29,6 +29,6 @@ namespace aicupper.models
 
         public Boolean IsEnabled { get; set; }
 
-        public List<judgeEvent> CuppingEvents { get; set; }
+        public ICollection<judgeEvent> CuppingEvents { get; set; }
     }
 }
